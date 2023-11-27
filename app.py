@@ -30,7 +30,7 @@ def login():
         return render_template('login.html')
 
 @app.route('/manager/<id>', methods=['GET'])
-def login():
+def managerpage():
     if request.method == 'GET':
         return manager.manager_page(id)
     else:
