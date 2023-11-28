@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Results for {{ name }} in {{ year }}</title>
+    <title>Manager Information</title>
     <style>
         /* Add your CSS styling here */
         table {
@@ -15,18 +15,16 @@
     </style>
 </head>
 <body>
-    <h1>Results for {{ name }} in {{ year }}</h1>
+    <h1>Manager {{ manager_name }}</h1>
     <table>
         <tr>
-            <th>Team_R</th>
-            <th>Team Rank</th>
-            <th>Manager Name</th>
+            <th>Team Name</th>
+            <th>Year</th>
         </tr>
         {% for row in results %}
         <tr>
-            <td>{{ row.team_R }}</td>
-            <td>{{ row.teamRank }}</td>
-            <td><a href="/managerInfo/{{ row.playerID }}">{{ row.manager_name }}</a></td>
+            <td>{{ row.team_name }}</td>
+            <td>{{ row.yearID }}</td>
         </tr>
         {% endfor %}
     </table>
