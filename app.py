@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_login import login_required, LoginManager, current_user, login_user
+#from flask_login import login_required, LoginManager, current_user, login_user
 import home
 import search
 import manager
@@ -23,9 +23,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        # add login functionality here
-        # if login successful, return redirect(url_for('home'))
-        # else return render_template('login.html')
+        print(username, password)
     else:
         return render_template('login.html')
 
