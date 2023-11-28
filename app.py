@@ -86,7 +86,7 @@ def teamInfo():
     username="root",
     password="csi3335",
     host="localhost",
-    database="baseball",
+    database="QueryQuintet",
     port=3306,)
     print(url_object)
     engine = create_engine(url_object)
