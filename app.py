@@ -73,30 +73,54 @@ def managerInfo():
 
 @app.route('/results', methods=['GET'])
 def teamInfo():
-    result_text = '<h1>Results for '
     name = request.args.get('nm', '')
-    result_text += name
-    result_text += ' in '
     year = request.args.get('year', '')
-    result_text += year + '</h1>'
-    params = {'x': name,
-              'y': year}
-    query1 = "SELECT team_R, teamRank, CONCAT(nameFirst, ' ', nameLast) AS manager_name FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
+
+    params = {'x': name, 'y': year}
+    query = "SELECT team_R, teamRank, CONCAT(nameFirst, ' ', nameLast) AS manager_name FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
     url_object = URL.create(
-    "mysql+pymysql",
-    username=conf.mysql['username'],
-    password=conf.mysql['password'],
-    host=conf.mysql['location'],
-    database=conf.mysql['database'],
-    port=3306,)
-    print(url_object)
+        "mysql+pymysql",
+        username=conf.mysql['username'],
+        password=conf.mysql['password'],
+        host=conf.mysql['location'],
+        database=conf.mysql['database'],
+        port=3306,)
     engine = create_engine(url_object)
+    results = []
     with engine.connect() as conn:
-        result = conn.execute(text(query1), params)
+        result = conn.execute(text(query), params)
         for row in result:
             print(row)
-            result_text += '<br>' + str(row) + '</br>'
-    return result_text
+            results.append(row)
+    return render_template('results.html', name=name, year=year, results=results)
+
+
+# @app.route('/results', methods=['GET'])
+# def teamInfo():
+#     result_text = '<h1>Results for '
+#     name = request.args.get('nm', '')
+#     result_text += name
+#     result_text += ' in '
+#     year = request.args.get('year', '')
+#     result_text += year + '</h1>'
+#     params = {'x': name,
+#               'y': year}
+#     query1 = "SELECT team_R, teamRank, CONCAT(nameFirst, ' ', nameLast) AS manager_name FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
+#     url_object = URL.create(
+#     "mysql+pymysql",
+#     username=conf.mysql['username'],
+#     password=conf.mysql['password'],
+#     host=conf.mysql['location'],
+#     database=conf.mysql['database'],
+#     port=3306,)
+#     print(url_object)
+#     engine = create_engine(url_object)
+#     with engine.connect() as conn:
+#         result = conn.execute(text(query1), params)
+#         for row in result:
+#             print(row)
+#             result_text += '<br>' + str(row) + '</br>'
+#     return result_text
 
 
 if __name__ == '__main__':
