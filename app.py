@@ -7,6 +7,7 @@ import sys
 import home
 import search
 import manager
+import csi3335F2023 as conf
 app = Flask(__name__, template_folder='.')
 # login = LoginManager(app)
 
@@ -83,10 +84,10 @@ def teamInfo():
     query1 = "SELECT team_R, teamRank, CONCAT(nameFirst, ' ', nameLast) AS manager_name FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
     url_object = URL.create(
     "mysql+pymysql",
-    username="root",
-    password="csi3335",
-    host="localhost",
-    database="QueryQuintet",
+    username=conf.mysql['username'],
+    password=conf.mysql['password'],
+    host=conf.mysql['location'],
+    database=conf.mysql['database'],
     port=3306,)
     print(url_object)
     engine = create_engine(url_object)
