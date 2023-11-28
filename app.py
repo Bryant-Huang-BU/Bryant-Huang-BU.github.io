@@ -24,10 +24,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
         print(username, password)
+        return redirect(url_for('search_page'))
     else:
         return render_template('login.html')
 
-@app.route('/manager/<id>', methods=['GET'])
+@app.route('/manager', methods=['GET'])
 def managerpage():
     if request.method == 'GET':
         return manager.manager_page(id)
