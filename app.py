@@ -5,6 +5,7 @@ from sqlalchemy import create_engine, URL, text
 from sqlalchemy.orm import sessionmaker
 import hashlib
 import sys
+#from flask_login import login_required, LoginManager, current_user, login_user
 import home
 import search
 import manager
@@ -19,7 +20,7 @@ def encrypt_string(hash_string):
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 
 @app.route('/post', methods=['POST'])
