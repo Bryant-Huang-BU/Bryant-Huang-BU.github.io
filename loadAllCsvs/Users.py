@@ -1,3 +1,5 @@
+import hashlib
+
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy import Column, Integer, String, create_engine, Double
 import csi3335F2023 as conf
@@ -10,8 +12,8 @@ class Users(Base):
     __tablename__ = "users"
 
     ID = Column(Integer, primary_key=True)
-    username = Column(String(255))
-    password = Column(String(255))
+    username = Column(String(512))
+    password = Column(String(512))
 
 csv_file = 'Users.csv'
 
@@ -20,6 +22,10 @@ engineStr = ("mysql+pymysql://" +
              conf.mysql['password'] + "@" +
              conf.mysql['location'] + ":3306/" +
              conf.mysql['database'])
+def encrypt_string(hash_string):
+    sha_signature = \
+        hashlib.sha256(hash_string.encode()).hexdigest()
+    return sha_signature
 
 # Creating the Database Engine and Tables
 engine = create_engine(engineStr)
@@ -39,6 +45,7 @@ for index, row in df.iterrows():
 
     # Create a new object of the class with data from the row
     new_row = Users(**row.to_dict())
+    new_row.password = encrypt_string(new_row.password)
 
     # Remove the previous instance of the player
     for person in allUsers:
