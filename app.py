@@ -3,15 +3,27 @@ from flask_login import login_required, LoginManager, current_user, login_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, URL, text
 from sqlalchemy.orm import sessionmaker
+import hashlib
 import sys
 #from flask_login import login_required, LoginManager, current_user, login_user
 import home
 import search
 import manager
 import csi3335F2023 as conf
+
+engineStr = ("mysql+pymysql://" +
+             conf.mysql['username'] + ":" +
+             conf.mysql['password'] + "@" +
+             conf.mysql['location'] + ":3306/" +
+             conf.mysql['database'])
+
 app = Flask(__name__, template_folder='.')
 # login = LoginManager(app)
 
+def encrypt_string(hash_string):
+    sha_signature = \
+        hashlib.sha256(hash_string.encode()).hexdigest()
+    return sha_signature
 
 @app.route('/', methods=['GET'])
 def index():
@@ -24,16 +36,39 @@ def post():
 
 
 # potentially add flask login using loginform and login_user
+@login_required
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
+        engine = create_engine(engineStr)
+        Session = sessionmaker(bind=engine)
+        session = Session()
         username = request.form['username']
+        #password = encrypt_string(request.form['password'])
         password = request.form['password']
-        # add login functionality here
-        # if login successful, return redirect(url_for('home'))
-        # else return render_template('login.html')
+    params = {'x': username, 'y': password}
+    print(password)
+    query = "SELECT username FROM users WHERE username = :x AND password = :y"
+    url_object = URL.create(
+        "mysql+pymysql",
+        username=conf.mysql['username'],
+        password=conf.mysql['password'],
+        host=conf.mysql['location'],
+        database=conf.mysql['database'],
+        port=3306,)
+    engine = create_engine(url_object)
+    results = []
+    with engine.connect() as conn:
+        result = conn.execute(text(query), params)
+        for row in result:
+            print(row)
+            results.append(row)
+    if results:
+        #return render_template('', username=username)
+        return home.home_page(username)
     else:
         return render_template('login.html')
+
 
 @app.route('/manager/<id>', methods=['GET'])
 def managerpage():
