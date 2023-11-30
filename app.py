@@ -53,10 +53,7 @@ def login():
         return render_template('home.html', username=username)
     else:
         return render_template('login.html')
-    
 
-    else:
-        return render_template('login.html')
 
 @app.route('/manager/<id>', methods=['GET'])
 def managerpage():
