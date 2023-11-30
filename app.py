@@ -10,6 +10,13 @@ import home
 import search
 import manager
 import csi3335F2023 as conf
+
+engineStr = ("mysql+pymysql://" +
+             conf.mysql['username'] + ":" +
+             conf.mysql['password'] + "@" +
+             conf.mysql['location'] + ":3306/" +
+             conf.mysql['database'])
+
 app = Flask(__name__, template_folder='.')
 # login = LoginManager(app)
 
@@ -29,13 +36,19 @@ def post():
 
 
 # potentially add flask login using loginform and login_user
+@login_required
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
+        engine = create_engine(engineStr)
+        Session = sessionmaker(bind=engine)
+        session = Session()
         username = request.form['username']
-        password = encrypt_string(request.form['password'])
+        #password = encrypt_string(request.form['password'])
+        password = request.form['password']
     params = {'x': username, 'y': password}
-    query = "SELECT USERNAME FROM users WHERE USERNAME = :x AND PASSWORD = :y"
+    print(password)
+    query = "SELECT username FROM users WHERE username = :x AND password = :y"
     url_object = URL.create(
         "mysql+pymysql",
         username=conf.mysql['username'],
@@ -51,7 +64,8 @@ def login():
             print(row)
             results.append(row)
     if results:
-        return render_template('home.html', username=username)
+        #return render_template('', username=username)
+        return home.home_page(username)
     else:
         return render_template('login.html')
 
