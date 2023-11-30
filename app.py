@@ -3,6 +3,7 @@ from flask_login import login_required, LoginManager, current_user, login_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, URL, text
 from sqlalchemy.orm import sessionmaker
+import hashlib
 import sys
 import home
 import search
@@ -11,6 +12,10 @@ import csi3335F2023 as conf
 app = Flask(__name__, template_folder='.')
 # login = LoginManager(app)
 
+def encrypt_string(hash_string):
+    sha_signature = \
+        hashlib.sha256(hash_string.encode()).hexdigest()
+    return sha_signature
 
 @app.route('/', methods=['GET'])
 def index():
@@ -27,10 +32,29 @@ def post():
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
-        # add login functionality here
-        # if login successful, return redirect(url_for('home'))
-        # else return render_template('login.html')
+        password = encrypt_string(request.form['password'])
+    params = {'x': username, 'y': password}
+    query = "SELECT USERNAME FROM users WHERE USERNAME = :x AND PASSWORD = :y"
+    url_object = URL.create(
+        "mysql+pymysql",
+        username=conf.mysql['username'],
+        password=conf.mysql['password'],
+        host=conf.mysql['location'],
+        database=conf.mysql['database'],
+        port=3306,)
+    engine = create_engine(url_object)
+    results = []
+    with engine.connect() as conn:
+        result = conn.execute(text(query), params)
+        for row in result:
+            print(row)
+            results.append(row)
+    if results:
+        return render_template('home.html', username=username)
+    else:
+        return render_template('login.html')
+    
+
     else:
         return render_template('login.html')
 
