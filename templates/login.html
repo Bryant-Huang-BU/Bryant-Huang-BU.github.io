@@ -1,70 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        h2 {
-            text-align: center;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .form-group input {
-            width: 95%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Login</h2>
-        <form action="http://localhost:5000/login" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password">
-            </div>
-            <div class="form-group">
-                <button type="submit">Login</button>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+<h1>Testing</h1>
+{% block content %}
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+	<p>
+	    {{ form.username.label }}<br>
+	    {{ form.username(size=32) }}<br>
+	    {% for error in form.username.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+	<p>
+	    {{ form.password.label }}<br>
+	    {{ form.password(size=32) }}<br>
+	    {% for error in form.password.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+	<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+	<p>{{ form.submit() }}</p>
+	<p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+    </form>
+{% endblock %}
