@@ -17,7 +17,7 @@ engineStr = ("mysql+pymysql://" +
              conf.mysql['location'] + ":3306/" +
              conf.mysql['database'])
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__)
 # login = LoginManager(app)
 
 def encrypt_string(hash_string):

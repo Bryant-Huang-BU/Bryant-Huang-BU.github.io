@@ -15,6 +15,10 @@ class Users(Base):
     username = Column(String(512))
     password = Column(String(512))
 
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+
 csv_file = 'Users.csv'
 
 engineStr = ("mysql+pymysql://" +
