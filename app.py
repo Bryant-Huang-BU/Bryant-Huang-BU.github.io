@@ -44,8 +44,8 @@ def login():
         Session = sessionmaker(bind=engine)
         session = Session()
         username = request.form['username']
-        #password = encrypt_string(request.form['password'])
-        password = request.form['password']
+        password = encrypt_string(request.form['password'])
+
     params = {'x': username, 'y': password}
     print(password)
     query = "SELECT username FROM users WHERE username = :x AND password = :y"
