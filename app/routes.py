@@ -9,15 +9,16 @@ from app.models import Users
 from flask import request
 from urllib.parse import urlparse
 from app import csi3335F2023 as conf
-from app import home, resetUserDB
 
 
+# create database if it does not exist
 @app.before_request
-def checkDB():
+def before_login():
     try:
+        print('before login request')
         db.session.query(Users).all()
     except:
-        resetUserDB.reset()
+        db.create_all()
 
 
 @app.route('/login', methods=['GET', 'POST'])
