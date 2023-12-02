@@ -1,0 +1,1 @@
+mysql={'location':'localhost','username':'root','password':'csi3335rocks','database':'QueryQuintet'}

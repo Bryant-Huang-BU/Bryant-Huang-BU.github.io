@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    <html>
+    <head>
+        <title>Manager Information</title>
+        <style>
+            /* Add your CSS styling here */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Manager {{ manager_name }}</h1>
+        <table>
+            <tr>
+                <th>Team Name</th>
+                <th>Year</th>
+            </tr>
+            {% for row in results %}
+            <tr>
+                <td>{{ row.team_name }}</td>
+                <td>{{ row.yearID }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+    </html>
+{% endblock %}
