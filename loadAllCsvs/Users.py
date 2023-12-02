@@ -1,8 +1,8 @@
 import hashlib
 
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
-from sqlalchemy import Column, Integer, String, create_engine, Double, URL, text
-import csi3335F2023 as conf
+from sqlalchemy import Column, Integer, String, create_engine, URL, text
+from beforeFlaskUpdates import csi3335F2023 as conf
 import pandas as pd
 class Base(DeclarativeBase):
     pass

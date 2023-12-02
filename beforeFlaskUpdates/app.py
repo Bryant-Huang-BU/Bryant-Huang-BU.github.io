@@ -1,13 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_login import login_required, LoginManager, current_user, login_user
-from flask_sqlalchemy import SQLAlchemy
+from flask_login import current_user
 from sqlalchemy import create_engine, URL, text
 from sqlalchemy.orm import sessionmaker
 import hashlib
-import sys
 #from flask_login import login_required, LoginManager, current_user, login_user
 import home
-import search
 import manager
 import csi3335F2023 as conf
 from forms import RegistrationForm
