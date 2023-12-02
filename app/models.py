@@ -22,6 +22,9 @@ class Users(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_admin(self):
+        return self.isAdmin
+
     def inc_num_queries(self):
         if self.numberQueries is None:
             self.numberQueries = 0

@@ -134,3 +134,28 @@ def teamInfo():
         for row in result:
             results.append(row)
     return render_template('results.html', name=name, year=year, results=results)
+
+@app.route('/user_counts', methods=['GET'])
+@login_required
+def teamInfo():
+    query = "SELECT username, numberQueries FROM users"
+    url_object = URL.create(
+        "mysql+pymysql",
+        username=conf.mysql['username'],
+        password=conf.mysql['password'],
+        host=conf.mysql['location'],
+        database=conf.mysql['database'],
+        port=3306,)
+    engine = create_engine(url_object)
+    results = []
+    with engine.connect() as conn:
+        user_id = current_user.get_id()
+        user = Users.query.filter_by(id=user_id).first()
+
+        if user.get_admin is None:
+            flash('You are not an admin')
+            return redirect(url_for('search_page'))
+        result = conn.execute(text(query))
+        for row in result:
+            results.append(row)
+    return render_template('results.html', results=results)
