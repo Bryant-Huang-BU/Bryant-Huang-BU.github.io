@@ -9,7 +9,19 @@ from app.models import Users
 from flask import request
 from urllib.parse import urlparse
 from app import csi3335F2023 as conf
-from app import home
+from app import home, resetUserDB
+
+
+@app.before_request
+def checkDB():
+    print("hello")
+    try:
+        db.session.query(Users).all()
+        print("No error")
+    except:
+        print("error")
+        resetUserDB.reset()
+        print("finished")
 
 
 @app.route('/login', methods=['GET', 'POST'])
