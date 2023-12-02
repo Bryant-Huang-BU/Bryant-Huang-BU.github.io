@@ -14,14 +14,10 @@ from app import home, resetUserDB
 
 @app.before_request
 def checkDB():
-    print("hello")
     try:
         db.session.query(Users).all()
-        print("No error")
     except:
-        print("error")
         resetUserDB.reset()
-        print("finished")
 
 
 @app.route('/login', methods=['GET', 'POST'])
