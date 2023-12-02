@@ -33,6 +33,17 @@ class Users(UserMixin, db.Model):
     def get_username(self):
         return self.username
 
+    def inc_num_queries(self):
+        if self.numberQueries is None:
+            self.numberQueries = 0
+        self.numberQueries += 1
+
+    def get_username(self):
+        return self.username
+
+    def get_is_admin(self):
+        return self.isAdmin
+
 
 @login.user_loader
 def load_user(id):

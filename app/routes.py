@@ -137,7 +137,7 @@ def teamInfo():
 
 @app.route('/user_counts', methods=['GET'])
 @login_required
-def teamInfo():
+def user_counts():
     query = "SELECT username, numberQueries FROM users"
     url_object = URL.create(
         "mysql+pymysql",
@@ -158,4 +158,5 @@ def teamInfo():
         result = conn.execute(text(query))
         for row in result:
             results.append(row)
-    return render_template('results.html', results=results)
+            print(row)
+    return render_template('user_info.html', results=results)
