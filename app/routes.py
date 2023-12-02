@@ -19,6 +19,12 @@ def before_login():
         db.session.query(Users).all()
     except:
         db.create_all()
+        user = Users()
+        user.username = 'admin'
+        user.set_password('admin')
+        user.isAdmin = True
+        db.session.add(user)
+        db.session.commit()
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -118,7 +124,13 @@ def teamInfo():
     results = []
     with engine.connect() as conn:
         result = conn.execute(text(query), params)
+        if result is None:
+            flash('Invalid team name or year')
+            return redirect(url_for('search_page'))
+        user_id = current_user.get_id()
+        user = Users.query.filter_by(id=user_id).first()
+        user.inc_num_queries()
+        db.session.commit()
         for row in result:
-            print(row)
             results.append(row)
     return render_template('results.html', name=name, year=year, results=results)
