@@ -10,7 +10,9 @@ class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    numberQueries = db.Column(db.Integer)
+    numberSearches = db.Column(db.Integer)
+    managerViews = db.Column(db.Integer)
+    logins = db.Column(db.Integer)
     isAdmin = db.Column(db.Boolean)
 
     def __repr__(self):
@@ -26,17 +28,30 @@ class Users(UserMixin, db.Model):
         return self.isAdmin
 
     def inc_num_queries(self):
-        if self.numberQueries is None:
-            self.numberQueries = 0
-        self.numberQueries += 1
+        if self.numberSearches is None:
+            self.numberSearches = 0
+        self.numberSearches += 1
 
     def get_username(self):
         return self.username
 
-    def inc_num_queries(self):
-        if self.numberQueries is None:
-            self.numberQueries = 0
-        self.numberQueries += 1
+    def inc_num_searches(self):
+        if self.numberSearches is None:
+            self.numberSearches = 0
+        self.numberSearches += 1
+        db.session.commit()
+
+    def inc_num_man_views(self):
+        if self.managerViews is None:
+            self.managerViews = 0
+        self.managerViews += 1
+        db.session.commit()
+
+    def inc_logins(self):
+        if self.logins is None:
+            self.logins = 0
+        self.logins += 1
+        db.session.commit()
 
     def get_username(self):
         return self.username

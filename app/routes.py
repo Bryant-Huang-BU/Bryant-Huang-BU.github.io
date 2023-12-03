@@ -41,6 +41,7 @@ def login():
         next_page = request.args.get('next')
         if not next_page or urlparse(next_page).netloc != '':
             next_page = url_for('search_page')
+        user.inc_logins()
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
@@ -110,6 +111,8 @@ def managerInfo(id):
 def teamInfo():
     name = request.args.get('nm', '')
     year = request.args.get('year', '')
+    user = Users.query.filter_by(username=current_user.get_username()).first()
+    user.inc_num_man_views()
 
     params = {'x': name, 'y': year}
     query = "SELECT team_R, teamRank, CONCAT(nameFirst, ' ', nameLast)AS manager_name, playerID FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
@@ -129,8 +132,7 @@ def teamInfo():
             return redirect(url_for('search_page'))
         user_id = current_user.get_id()
         user = Users.query.filter_by(id=user_id).first()
-        user.inc_num_queries()
-        db.session.commit()
+        user.inc_num_searches()
         for row in result:
             results.append(row)
     return render_template('results.html', name=name, year=year, results=results)
@@ -138,7 +140,7 @@ def teamInfo():
 @app.route('/user_counts', methods=['GET'])
 @login_required
 def user_counts():
-    query = "SELECT username, numberQueries FROM users"
+    query = "SELECT username, numberSearches, managerViews, logins FROM users"
     url_object = URL.create(
         "mysql+pymysql",
         username=conf.mysql['username'],
