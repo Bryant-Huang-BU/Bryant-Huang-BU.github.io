@@ -19,12 +19,16 @@
         <h1>Results for {{ name }} in {{ year }}</h1>
         <table>
             <tr>
-                <th>Team_R</th>
+                <th>Projected Wins</th>
+                <th>Projected Losses</th>
+                <th>Team Runs</th>
                 <th>Team Rank</th>
                 <th>Manager Name</th>
             </tr>
             {% for row in results %}
             <tr>
+                <td>{{ row.team_projW }}</td>
+                <td>{{ row.team_projL }}</td>
                 <td>{{ row.team_R }}</td>
                 <td>{{ row.teamRank }}</td>
                 <td><a href="/managerInfo/{{ row.playerID }}">{{ row.manager_name }}</a></td>
