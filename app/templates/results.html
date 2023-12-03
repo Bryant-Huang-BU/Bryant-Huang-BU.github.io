@@ -21,6 +21,7 @@
             <tr>
                 <th>Projected Wins</th>
                 <th>Projected Losses</th>
+                <th>Team Record</th>
                 <th>Team Runs</th>
                 <th>Team Rank</th>
                 <th>Manager Name</th>
@@ -29,6 +30,7 @@
             <tr>
                 <td>{{ row.team_projW }}</td>
                 <td>{{ row.team_projL }}</td>
+                <td>{{ row.team_W }}-{{ row.team_L }}</td>
                 <td>{{ row.team_R }}</td>
                 <td>{{ row.teamRank }}</td>
                 <td><a href="/managerInfo/{{ row.playerID }}">{{ row.manager_name }}</a></td>

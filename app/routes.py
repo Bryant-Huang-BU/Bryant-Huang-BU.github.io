@@ -115,7 +115,7 @@ def teamInfo():
     user.inc_num_man_views()
 
     params = {'x': name, 'y': year}
-    query = "SELECT team_projW, team_projL, team_R, teamRank, CONCAT(nameFirst, ' ', nameLast)AS manager_name, playerID FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
+    query = "SELECT team_projW, team_projL, team_R, team_W, team_L, teamRank, CONCAT(nameFirst, ' ', nameLast)AS manager_name, playerID FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
     url_object = URL.create(
         "mysql+pymysql",
         username=conf.mysql['username'],
