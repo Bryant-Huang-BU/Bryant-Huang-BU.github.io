@@ -20,16 +20,16 @@
         <table>
             <tr>
                 <th>Username</th>
+                <th>Number of Logins</th>
                 <th>Team Searches</th>
                 <th>Manager Views</th>
-                <th>Number of Logins</th>
             </tr>
             {% for row in results %}
             <tr>
                 <td>{{ row.username }}</td>
+                <td>{{ row.logins }}</td>
                 <td>{{ row.numberSearches }}</td>
                 <td>{{ row.managerViews }}</td>
-                <td>{{ row.logins }}</td>
             </tr>
             {% endfor %}
         </table>
