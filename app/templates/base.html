@@ -10,6 +10,7 @@
             Query Quintet:
 	    <a href="{{ url_for('search_page') }}">Home</a>
 	    <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('update_passwords') }}">Update Password</a>
         {% if current_user.isAdmin %}
             <a href="{{ url_for('user_counts') }}">User Accounts</a>
 	    {% endif %}

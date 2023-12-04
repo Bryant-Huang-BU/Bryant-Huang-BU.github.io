@@ -53,9 +53,6 @@ class Users(UserMixin, db.Model):
         self.logins += 1
         db.session.commit()
 
-    def get_username(self):
-        return self.username
-
     def get_is_admin(self):
         return self.isAdmin
 

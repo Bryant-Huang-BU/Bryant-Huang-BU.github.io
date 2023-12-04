@@ -3,7 +3,7 @@ from sqlalchemy import URL, create_engine, text
 
 from app import app, db
 import pymysql
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, PasswordForm
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import Users
 from flask import request
@@ -65,6 +65,19 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/update_passwords', methods=['GET', 'POST'])
+@login_required
+def update_passwords():
+    form = PasswordForm()
+    if form.validate_on_submit():
+        user = Users.query.filter_by(username=current_user.get_username()).first()
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Updated password')
+        return redirect(url_for('search_page'))
+    return render_template('update_password.html', title='Update Password', form=form)
 
 
 @app.route('/')
