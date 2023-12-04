@@ -23,7 +23,7 @@ USE QueryQuintet
 ```
 
 5. The database is ready!
-6. In the project folder terminal enter:
+6. In the project folder terminal while using the project virtual environment enter:
 ```Bash
 flask run
 ```
