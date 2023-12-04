@@ -10,8 +10,6 @@ This virtual environment contains essential Python libraries and frameworks requ
 
 ## Instructions
 
-
-
 1. **Create a Virtual Environment**
 
 open project directory
@@ -48,6 +46,28 @@ Once the virtual environment is activated and dependencies are installed, you ca
 ```bash
 deactivate
 ```
+
+# Database Setup:
+
+1. Log in to the mysql database.
+
+2. If you have not already created the QueryQuintet database, do so by entering 
+```SQL
+CREATE DATABASE QueryQuintet
+```
+
+3. Enter the database by entering
+```SQL
+USE QueryQuintet
+```
+
+4. Run the absolute path of the sqldump, using the command:
+
+```Bash
+\. <Absolute Path Here>
+```
+
+5. The database is ready!
 
 # Updates to the Lahman Baseball Database
 
