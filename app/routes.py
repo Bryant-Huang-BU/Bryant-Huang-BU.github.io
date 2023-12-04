@@ -127,7 +127,8 @@ def teamInfo():
     results = []
     with engine.connect() as conn:
         result = conn.execute(text(query), params)
-        if result is None:
+        isValid = result.rowcount
+        if isValid == 0:
             flash('Invalid team name or year')
             return redirect(url_for('search_page'))
         user_id = current_user.get_id()
