@@ -1,55 +1,10 @@
 # CSI3335 Group Project QueryQuintet
 
 This repository is the QueryQuintet Team repository. 
-Setup for the virtual environment is below. **Please use Python 3.10 and above** <br />
-Source for requirements.txt and readme steps: https://github.com/sanjelarun/csi3335-project-venv
-
-## Description
-
-This virtual environment contains essential Python libraries and frameworks required for the project. The `requirements.txt` file lists all the dependencies.
-
-## Instructions
-
-1. **Create a Virtual Environment**
-
-open project directory
-
-**For Windows**
-```bash
-python -m venv project_env
-```
-**For Linux/MacOs**
-```bash
-python3 -m venv project_env
-
-```
-2. **Activate the Virtual Environment**
-
-**For Windows**
-```bash
-.\project_env\Scripts\activate
-```
-**For Linux/MacOs**
-```bash
-source project_env/bin/activate
-```
-
-3. **Install the dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-Once the virtual environment is activated and dependencies are installed, you can start working on your project within this environment. Remember to deactivate the virtual environment once you're done:
-
-```bash
-deactivate
-```
 
 # Database Setup:
 
-1. Log in to the mysql database.
+1. Log in to mysql.
 
 2. If you have not already created the QueryQuintet database, do so by entering 
 ```SQL
@@ -61,13 +16,23 @@ CREATE DATABASE QueryQuintet
 USE QueryQuintet
 ```
 
-4. Run the absolute path of the sqldump, using the command:
+4. Run the absolute path of QueryQuintet.sql, using the command:
 
 ```Bash
 \. <Absolute Path Here>
 ```
 
 5. The database is ready!
+6. In the project folder terminal enter:
+```Bash
+flask run
+```
+7. Open a tab to: http://localhost:5000
+8. You should see this login page
+![img.png](app/static/img.png)
+9. Default admin username is admin and password is admin
+10. After login, it is recommended to update password from home page button "Update Password"
+11. Any additional users will not have access to query statistics under the User Accounts page
 
 # Updates to the Lahman Baseball Database
 
