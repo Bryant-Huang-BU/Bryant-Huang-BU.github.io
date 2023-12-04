@@ -19,20 +19,28 @@
         <h1>Results for {{ name }} in {{ year }}</h1>
         <table>
             <tr>
-                <th>Projected Wins</th>
-                <th>Projected Losses</th>
                 <th>Team Record</th>
-                <th>Team Runs</th>
+                <th>Projected Team Record</th>
+                <th>Runs Scored</th>
+                <th>Runs Allowed</th>
                 <th>Team Rank</th>
-                <th>Manager Name</th>
             </tr>
             {% for row in results %}
             <tr>
-                <td>{{ row.team_projW }}</td>
-                <td>{{ row.team_projL }}</td>
                 <td>{{ row.team_W }}-{{ row.team_L }}</td>
+                <td>{{ row.team_projW }}-{{ row.team_projL }}</td>
                 <td>{{ row.team_R }}</td>
-                <td>{{ row.teamRank }}</td>
+                <td>{{ row.team_RA }}</td>
+                <td>{{ row.team_rank }}</td>
+            </tr>
+            {% endfor %}
+        </table></br></br>
+        <table>
+            <tr>
+                <th>Manager Name</th>
+            </tr>
+            {% for row in managers %}
+            <tr>
                 <td><a href="/managerInfo/{{ row.playerID }}">{{ row.manager_name }}</a></td>
             </tr>
             {% endfor %}

@@ -115,7 +115,8 @@ def teamInfo():
     user.inc_num_man_views()
 
     params = {'x': name, 'y': year}
-    query = "SELECT team_projW, team_projL, team_R, team_W, team_L, teamRank, CONCAT(nameFirst, ' ', nameLast)AS manager_name, playerID FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
+    query = "SELECT team_projW, team_projL, team_R, team_RA, team_W, team_L, team_rank FROM teams WHERE team_name =:x AND yearID =:y"
+    man_query = "SELECT CONCAT(nameFirst, ' ', nameLast)AS manager_name, playerID FROM teams JOIN managers USING(teamID, yearid) JOIN people USING(playerid) WHERE team_name =:x AND managers.yearID =:y"
     url_object = URL.create(
         "mysql+pymysql",
         username=conf.mysql['username'],
@@ -125,9 +126,11 @@ def teamInfo():
         port=3306,)
     engine = create_engine(url_object)
     results = []
+    managers = []
     with engine.connect() as conn:
         result = conn.execute(text(query), params)
         isValid = result.rowcount
+        manager = conn.execute(text(man_query), params)
         if isValid == 0:
             flash('Invalid team name or year')
             return redirect(url_for('search_page'))
@@ -136,7 +139,9 @@ def teamInfo():
         user.inc_num_searches()
         for row in result:
             results.append(row)
-    return render_template('results.html', name=name, year=year, results=results)
+        for row in manager:
+            managers.append(row)
+    return render_template('results.html', name=name, year=year, results=results, managers=managers)
 
 @app.route('/user_counts', methods=['GET'])
 @login_required
