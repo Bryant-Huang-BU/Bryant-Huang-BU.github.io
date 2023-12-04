@@ -7,6 +7,7 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
                 margin: 0;
                 border: 0;
             }
@@ -47,6 +48,23 @@
                 background-color: #555;
             }
 
+            .container {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fdfdfd;
+                border-radius: 5px;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+            .form-group {
+                margin-bottom: 20px;
+                text-align: left;
+            }
+            hr {
+                margin-top: 0;
+                border: none;
+            }
+
         </style>
     </head>
     <body>
@@ -64,6 +82,8 @@
                 {% endif %}
             </div>
         </div>
+        <hr>
+        <hr>
         <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
