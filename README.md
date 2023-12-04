@@ -30,7 +30,7 @@ flask run
 7. Open a tab to: http://localhost:5000
 8. You should see this login page
 ![img.png](app/static/img.png)
-9. Default admin username is admin and password is admin
+9. Default admin username is "admin" and password is "admin"
 10. After login, it is recommended to update password from home page button "Update Password"
 11. Any additional users will not have access to query statistics under the User Accounts page
 
