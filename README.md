@@ -23,6 +23,7 @@ USE QueryQuintet
 ```
 
 5. The database is ready!
+7. In the project's app folder, modify csi3335F2023.py as needed to match the mysql user information.
 6. In the project folder terminal while using the project virtual environment enter:
 ```Bash
 flask run
