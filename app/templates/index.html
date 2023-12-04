@@ -2,70 +2,74 @@
 {% block content %}
 <html>
 <head>
-	<title>Welcome Page</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			background-color: #f2f2f2;
-		}
+    <title>Welcome Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            border: 0;
+        }
 
-		.container {
-			max-width: 400px;
-			margin: 0 auto;
-			padding: 20px;
-			background-color: #fff;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		}
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
 
-		h1 {
-			text-align: center;
-		}
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-		.form-group {
-			margin-bottom: 20px;
-		}
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
 
-		.form-group p {
-			margin-bottom: 5px;
-		}
+        .form-group p {
+            margin-bottom: 5px;
+            color: #333;
+        }
 
-		.form-group input[type="text"] {
-			width: 95%;
-			padding: 10px;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-		}
+        .form-group input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #c4c4c4;
+            border-radius: 3px;
+        }
 
-
-		.form-group input[type="submit"] {
-			width: 100%;
-			padding: 10px;
-			background-color: #4CAF50;
-			color: #fff;
-			border: none;
-			border-radius: 3px;
-			cursor: pointer;
-		}
-	</style>
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<h1>Welcome {{ current_user.username }}!</h1>
-		<form action="http://localhost:5000/results" method="get">
-			<div class="form-group">
-				<p>Enter team name:</p>
-				<p><input type="text" name="nm" /></p>
-			</div>
-			<div class="form-group">
-				<p>Enter year:</p>
-				<p><input type="text" name="year" /></p>
-			</div>
-			<div class="form-group">
-				<p><input type="submit" value="submit" /></p>
-			</div>
-		</form>
-	</div>
+    <div class="container">
+        <h1>Welcome {{ current_user.username }}!</h1>
+        <form action="http://localhost:5000/results" method="get">
+            <div class="form-group">
+                <p>Enter team name:</p>
+                <input type="text" name="nm" class="username-input"/>
+            </div>
+            <div class="form-group">
+                <p>Enter year:</p>
+                <input type="text" name="year" class="username-input"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="submit" class="submit-button"/>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
 {% endblock %}
